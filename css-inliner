@@ -1,0 +1,40 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+function help()
+{
+    return 'USAGE: inliner FILE
+
+Inline the css from a html file' . PHP_EOL;
+}
+
+function inline($file)
+{
+    $inliner = new TijsVerkoyen\CssToInlineStyles\CssToInlineStyles();
+    $inliner->setUseInlineStylesBlock();
+    $inliner->setStripOriginalStyleTags();
+    $inliner->setHTML($file);
+
+    $stripped = $inliner->convert();
+
+    $stripped = str_replace('<style></style>', '', $stripped);
+    $stripped = str_replace('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">' . PHP_EOL, '', $stripped);
+
+    return $stripped;
+}
+
+if (isset($argv[1]) && in_array($argv[1], array('-h', '--help'))) {
+    echo help();
+} elseif (isset($argv[1]) && is_file($argv[1])) {
+    echo inline(file_get_contents($argv[1]));
+} else {
+    $contents = '';
+
+    while($f = fgets(STDIN)){
+        $contents .= $f;
+    }
+
+    echo inline($contents);
+}

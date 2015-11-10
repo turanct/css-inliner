@@ -1,0 +1,19 @@
+{
+    "name": "turanct/css-inliner",
+    "description": "Command line tool using tijsverkoyen/css-to-inline-styles for inlining css",
+    "type": "application",
+    "homepage": "http://github.com/turanct/css-inliner",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toon Daelman",
+            "email": "spinnewebber_toon@hotmail.com",
+            "homepage": "http://turanct.wordpress.com",
+            "role": "Developer"
+        }
+    ],
+    "bin": ["css-inliner"],
+    "require": {
+        "tijsverkoyen/css-to-inline-styles": "1.5.4"
+    }
+}
